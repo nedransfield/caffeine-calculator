@@ -1,3 +1,4 @@
+@tailwind base;
 @tailwind utilities;
 
 body {
@@ -5,4 +6,8 @@ body {
   line-height: 1.6;
   display: flex;
   justify-content: center;
+}
+
+.field {
+  margin: 10px;
 }

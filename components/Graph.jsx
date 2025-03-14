@@ -28,7 +28,7 @@ const Graph = ({ drinks }) => {
   const decay = Math.log(2) / halfLife
   const caffeineData = new Array(25).fill(0)
   for (let drink of drinks) {
-    console.log(drink.caffeine)
+    console.log(drink)
     for (let i = 0; i <= 24; i++) {
       if (i < drink.time.match(/^\d+/)[0]) {
         caffeineData[i] += 0
@@ -39,7 +39,6 @@ const Graph = ({ drinks }) => {
       }
     }
   }
-  console.log(caffeineData)
 
   const options = {
     responsive: true,
@@ -100,7 +99,7 @@ const Graph = ({ drinks }) => {
     datasets: [
       {
         fill: true,
-        label: 'Caffeine',
+        label: 'Caffeine levels',
         data: caffeineData,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',

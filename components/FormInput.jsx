@@ -1,37 +1,42 @@
 'use client'
 
+import drinks from '@/public/drinks'
+import Button from '@mui/material/Button'
+import { TextField } from '@mui/material'
+import { Autocomplete } from '@mui/material'
 import { useState } from 'react'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 
 const FormInput = ({ handleAdd }) => {
-  const [drink, setDrink] = useState('Red Bull')
-  const [caffeine, setCaffeine] = useState(114)
-  const [time, setTime] = useState('9:00')
+  const [newDrink, setNewDrink] = useState('')
+  const [newCaffeine, setNewCaffeine] = useState()
+  const [newTime, setNewTime] = useState('')
 
-  const handleDrinkChange = (e) => {
-    setDrink(e.target.value)
+  const defaultProps = {
+    options: drinks,
+    getOptionLabel: (drink) => drink.name,
   }
 
-  const handleCaffeineChange = (e) => {
-    setCaffeine(+e.target.value)
+  const handleDrinkChange = (e, newValue) => {
+    setNewDrink(newValue.name)
+    setNewCaffeine(newValue.caffeine)
   }
 
   const handleTimeChange = (e) => {
-    setTime(e.target.value)
+    setNewTime(`${e.$H}`)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newDrink = {
-      drink,
-      caffeine,
-      time,
+    const addedDrink = {
+      drink: newDrink,
+      caffeine: newCaffeine,
+      time: newTime,
     }
 
-    handleAdd(newDrink)
-
-    setDrink('')
-    setCaffeine('')
-    setTime('')
+    handleAdd(addedDrink)
   }
 
   return (
@@ -39,19 +44,27 @@ const FormInput = ({ handleAdd }) => {
       <h4>Tell me what you drank today</h4>
 
       <div className='field'>
-        <label htmlFor=''>Drink: </label>
-        <input onChange={handleDrinkChange} type='text' value={drink} />
+        <Autocomplete
+          {...defaultProps}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label='Drink' />}
+          onChange={handleDrinkChange}
+        />
       </div>
       <div className='field'>
-        <label htmlFor=''>Caffeine Content: </label>
-        <input onChange={handleCaffeineChange} type='text' value={caffeine} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <TimePicker
+            views={['hours']}
+            sx={{ width: 300 }}
+            label='Time of Day'
+            onChange={handleTimeChange}
+          />
+        </LocalizationProvider>
       </div>
       <div className='field'>
-        <label htmlFor=''>Time: </label>
-        <input onChange={handleTimeChange} type='text' value={time} />
-      </div>
-      <div>
-        <button type='submit'>Add to Graph</button>
+        <Button variant='contained' onClick={handleSubmit}>
+          Add to Graph
+        </Button>
       </div>
     </form>
   )
