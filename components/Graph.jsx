@@ -52,22 +52,31 @@ const Graph = ({ drinks }) => {
         display: false,
         text: 'Caffeine',
       },
+      tooltip: {
+        intersect: false,
+        displayColors: false,
+        position: 'nearest',
+        callbacks: {
+          title: () => '',
+          label: (context) => `${context.parsed.y.toFixed(1)} mg`,
+        },
+      },
       annotation: {
         annotations: {
           line: {
             type: 'line',
             yMin: 400,
             yMax: 400,
-            borderColor: 'red',
+            borderColor: 'rgb(255, 73, 88)',
             borderWidth: 2,
             borderDash: [5, 5],
             label: {
-              content: 'Danger zone',
+              content: 'Safe Daily Max',
               backgroundColor: 'rgba(0, 0, 0, 0)',
-              color: 'rgb(255, 0, 0)',
+              color: 'rgb(255, 73, 88)',
               display: true,
               position: 'end',
-              yAdjust: -20,
+              yAdjust: -10,
             },
           },
           box: {
@@ -80,17 +89,8 @@ const Graph = ({ drinks }) => {
       },
     },
     scales: {
-      x: {
-        /*         title: {
-          text: 'Time of Day',
-          display: true,
-        }, */
-      },
+      x: {},
       y: {
-        /*         title: {
-          text: 'mg',
-          display: true,
-        }, */
         suggestedMax: 500,
         ticks: {
           callback: (value) => `${value} mg`,
@@ -100,9 +100,6 @@ const Graph = ({ drinks }) => {
     elements: {
       point: {
         pointStyle: false,
-      },
-      line: {
-        tension: 0.1,
       },
     },
   }
@@ -140,8 +137,8 @@ const Graph = ({ drinks }) => {
     datasets: [
       {
         fill: true,
-        label: 'Caffeine levels',
         data: caffeineData,
+        label: 'Caffeine level',
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
