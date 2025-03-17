@@ -11,6 +11,7 @@ import {
   Legend,
   elements,
 } from 'chart.js'
+import Annotation from 'chartjs-plugin-annotation'
 
 const Graph = ({ drinks }) => {
   ChartJS.register(
@@ -21,7 +22,8 @@ const Graph = ({ drinks }) => {
     Title,
     Tooltip,
     Filler,
-    Legend
+    Legend,
+    Annotation
   )
 
   const halfLife = 6
@@ -50,10 +52,49 @@ const Graph = ({ drinks }) => {
         display: false,
         text: 'Caffeine',
       },
+      annotation: {
+        annotations: {
+          line: {
+            type: 'line',
+            yMin: 400,
+            yMax: 400,
+            borderColor: 'red',
+            borderWidth: 2,
+            borderDash: [5, 5],
+            label: {
+              content: 'Danger zone',
+              backgroundColor: 'rgba(0, 0, 0, 0)',
+              color: 'rgb(255, 0, 0)',
+              display: true,
+              position: 'end',
+              yAdjust: -20,
+            },
+          },
+          box: {
+            type: 'box',
+            yMin: 400,
+            backgroundColor: 'rgba(255, 60, 60, 0.15)',
+            borderColor: 'rgba(0, 0, 0, 0)',
+          },
+        },
+      },
     },
     scales: {
+      x: {
+        /*         title: {
+          text: 'Time of Day',
+          display: true,
+        }, */
+      },
       y: {
-        stacked: true,
+        /*         title: {
+          text: 'mg',
+          display: true,
+        }, */
+        suggestedMax: 500,
+        ticks: {
+          callback: (value) => `${value} mg`,
+        },
       },
     },
     elements: {
