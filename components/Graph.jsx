@@ -30,7 +30,6 @@ const Graph = ({ drinks }) => {
   const decay = Math.log(2) / halfLife
   const caffeineData = new Array(25).fill(0)
   for (let drink of drinks) {
-    console.log(drink)
     for (let i = 0; i <= 24; i++) {
       if (i < drink.time.match(/^\d+/)[0]) {
         caffeineData[i] += 0

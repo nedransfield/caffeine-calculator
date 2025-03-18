@@ -119,6 +119,14 @@ const drinks = [
     name: 'Barqs Root Beer 12oz',
     caffeine: 22,
   },
+  {
+    name: '5 Hour Energy',
+    caffeine: 200,
+  },
+  {
+    name: '5 Hour Energy Extra Strength',
+    caffeine: 230,
+  },
 ]
 
 export default drinks
