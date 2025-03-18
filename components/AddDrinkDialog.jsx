@@ -72,7 +72,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
         <div className='field'>
           <Autocomplete
             {...defaultProps}
-            sx={{ width: 300 }}
+            sx={{ width: 'auto' }}
             renderInput={(params) => <TextField {...params} label='Drink' />}
             onChange={handleDrinkChange}
           />
@@ -81,7 +81,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker
               views={['hours']}
-              sx={{ width: 300 }}
+              sx={{ width: 'auto' }}
               label='Time of Day'
               onChange={handleTimeChange}
             />
