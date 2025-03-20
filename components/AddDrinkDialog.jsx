@@ -34,11 +34,9 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
 
   const handleDrinkChange = (e, newValue) => {
     setAddingCustomDrink(false)
-    if (e.target.textContent !== '') {
+    if (newValue) {
       setNewDrink(newValue.name)
       setNewCaffeine(newValue.caffeine)
-    } else {
-      console.log('drink field emptied')
     }
   }
 
@@ -52,10 +50,6 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    console.log(newDrink)
-    console.log(newCaffeine)
-    console.log(newTime)
 
     if (newDrink !== '' && newCaffeine > 0 && newTime !== '') {
       const addedDrink = {
