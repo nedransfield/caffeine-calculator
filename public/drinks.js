@@ -127,6 +127,10 @@ const drinks = [
     name: '5 Hour Energy Extra Strength',
     caffeine: 230,
   },
+  {
+    name: 'Yerba Mate',
+    caffeine: 150,
+  },
 ]
 
 export default drinks

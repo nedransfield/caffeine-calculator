@@ -41,6 +41,53 @@ const Graph = ({ drinks }) => {
     }
   }
 
+  function convertFloatToTime(floatValue) {
+    const totalMilliseconds = floatValue * 1000 * 60 * 60
+    const newDate = new Date(totalMilliseconds)
+    const hours = newDate.getHours()
+    const minutes = newDate.getMinutes()
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`
+  }
+
+  const otherCaffeineData = []
+  /* 
+  let i = 0.0
+  let testCaf = 230
+  while (testCaf * Math.E ** (-decay * i) > 1) {
+    otherCaffeineData.push({
+      x: new Date(i * 1000 * 60 * 60).toLocaleString(),
+      y: testCaf * Math.E ** (-decay * i),
+    })
+    i += 0.25
+  }
+ */
+
+  for (let drink of drinks) {
+    let i = 0.0
+    let n = 0
+    while (drink.caffeine * Math.E ** (-decay * i) > 1) {
+      if (otherCaffeineData[n] == undefined) {
+        otherCaffeineData[n] = {
+          x: new Date((+drink.time + i) * 1000 * 60 * 60).toLocaleString(),
+          y: drink.caffeine * Math.E ** (-decay * i),
+        }
+        i += 0.25
+      } else {
+        if (
+          new Date((+drink.time + i) * 1000 * 60 * 60) <
+          new Date(otherCaffeineData[n].x)
+        ) {
+          otherCaffeineData[n].y += drink.caffeine * Math.E ** (-decay * i)
+          i += 0.25
+        }
+      }
+      n++
+    }
+  }
+
   const options = {
     responsive: true,
     plugins: {

@@ -16,8 +16,9 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker'
 const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
   //   const [open, setOpen] = useState(true)
   const [newDrink, setNewDrink] = useState('')
-  const [newCaffeine, setNewCaffeine] = useState()
+  const [newCaffeine, setNewCaffeine] = useState(0)
   const [newTime, setNewTime] = useState('')
+  const [addingCustomDrink, setAddingCustomDrink] = useState(false)
 
   const defaultProps = {
     options: drinks.sort((a, b) => {
@@ -28,12 +29,21 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
       }
       return 0
     }),
-    getOptionLabel: (drink) => drink.name,
+    getOptionLabel: (drink) => drink.name || '',
   }
 
   const handleDrinkChange = (e, newValue) => {
-    setNewDrink(newValue.name)
-    setNewCaffeine(newValue.caffeine)
+    setAddingCustomDrink(false)
+    if (e.target.textContent !== '') {
+      setNewDrink(newValue.name)
+      setNewCaffeine(newValue.caffeine)
+    } else {
+      console.log('drink field emptied')
+    }
+  }
+
+  const handleCaffeineChange = (e) => {
+    setNewCaffeine(+e.target.value)
   }
 
   const handleTimeChange = (e) => {
@@ -42,14 +52,32 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const addedDrink = {
-      drink: newDrink,
-      caffeine: newCaffeine,
-      time: newTime,
-    }
 
-    handleAdd(addedDrink)
-    handleClose()
+    console.log(newDrink)
+    console.log(newCaffeine)
+    console.log(newTime)
+
+    if (newDrink !== '' && newCaffeine > 0 && newTime !== '') {
+      const addedDrink = {
+        drink: newDrink,
+        caffeine: newCaffeine,
+        time: newTime,
+      }
+
+      handleAdd(addedDrink)
+      handleClose()
+    }
+  }
+
+  const handleBlur = (e) => {
+    const customDrink = e.target.value
+    if (
+      drinks.filter((drink) => drink.name === customDrink).length == 0 &&
+      e.target.value !== ''
+    ) {
+      setAddingCustomDrink(true)
+      setNewDrink(e.target.value)
+    }
   }
 
   const handleClose = () => {
@@ -73,9 +101,23 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
           <Autocomplete
             {...defaultProps}
             sx={{ width: 'auto' }}
-            renderInput={(params) => <TextField {...params} label='Drink' />}
+            renderInput={(params) => (
+              <TextField {...params} label='Drink' required />
+            )}
             onChange={handleDrinkChange}
+            onBlur={handleBlur}
+            freeSolo={true}
           />
+        </div>
+        <div className='field'>
+          {addingCustomDrink && (
+            <TextField
+              label='Caffeine Amount (mg)'
+              type='number'
+              autoFocus={true}
+              onChange={handleCaffeineChange}
+            />
+          )}
         </div>
         <div className='field'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -84,6 +126,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
               sx={{ width: 'auto' }}
               label='Time of Day'
               onChange={handleTimeChange}
+              required
             />
           </LocalizationProvider>
         </div>
