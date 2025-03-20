@@ -23,21 +23,23 @@ const DrinksDisplay = ({ drinks, handleAdd, handleDelete }) => {
 
   return (
     <>
-      <h4>Today's drinks:</h4>
+      <h4>
+        Today's drinks
+        <Button
+          variant='contained'
+          onClick={handleOpenDialog}
+          color='success'
+          disableRipple={true}
+          sx={{ borderRadius: 10, marginLeft: '20px' }}
+        >
+          <AddIcon />
+        </Button>
+      </h4>
       <Stack marginBottom={2}>
         {drinks.map((drink, index) => (
           <DrinkItem key={index} drink={drink} handleDelete={handleDelete} />
         ))}
       </Stack>
-      <Button
-        variant='contained'
-        onClick={handleOpenDialog}
-        color='success'
-        disableRipple={true}
-        sx={{ borderRadius: 10 }}
-      >
-        <AddIcon />
-      </Button>
       {open && (
         <AddDrinkDialog handleAdd={handleAdd} open={open} setOpen={setOpen} />
       )}
