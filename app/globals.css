@@ -2,9 +2,9 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Verdana', sans-serif;
   line-height: 1.6;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: auto;
 }

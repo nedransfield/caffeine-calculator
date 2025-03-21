@@ -88,8 +88,11 @@ const Graph = ({ drinks }) => {
     }
   }
 
+  const isMobile = window.matchMedia('(max-width: 430px)').matches
+
   const options = {
     responsive: true,
+    aspectRatio: isMobile ? 1 : 2,
     plugins: {
       legend: {
         position: 'top',
