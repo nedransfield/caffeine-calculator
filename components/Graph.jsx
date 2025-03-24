@@ -1,3 +1,4 @@
+import { useMediaQuery } from 'react-responsive'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -14,6 +15,8 @@ import {
 import Annotation from 'chartjs-plugin-annotation'
 
 const Graph = ({ drinks }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 430px)' })
+
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -87,8 +90,6 @@ const Graph = ({ drinks }) => {
       n++
     }
   }
-
-  const isMobile = window.matchMedia('(max-width: 430px)').matches
 
   const options = {
     responsive: true,
