@@ -5,8 +5,9 @@ body {
   line-height: 1.6;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-self: center;
   width: auto;
+  max-width: 800px;
 }
 
 .field {
