@@ -23,8 +23,8 @@ const DrinksDisplay = ({ drinks, handleAdd, handleDelete }) => {
 
   return (
     <>
-      <h4>
-        Today's drinks
+      <div className='flex flex-row items-center'>
+        <h4 className='font-bold'>Today's drinks</h4>
         <Button
           variant='contained'
           onClick={handleOpenDialog}
@@ -34,7 +34,7 @@ const DrinksDisplay = ({ drinks, handleAdd, handleDelete }) => {
         >
           <AddIcon />
         </Button>
-      </h4>
+      </div>
       <Stack marginBottom={2}>
         {drinks.map((drink, index) => (
           <DrinkItem key={index} drink={drink} handleDelete={handleDelete} />

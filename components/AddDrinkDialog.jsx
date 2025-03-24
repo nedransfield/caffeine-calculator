@@ -91,7 +91,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
     >
       <DialogTitle>Add A Drink</DialogTitle>
       <DialogContent>
-        <div className='field'>
+        <div className='my-2'>
           <Autocomplete
             {...defaultProps}
             sx={{ width: 'auto' }}
@@ -103,7 +103,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
             freeSolo={true}
           />
         </div>
-        <div className='field'>
+        <div className='my-2'>
           {addingCustomDrink && (
             <TextField
               label='Caffeine Amount (mg)'
@@ -113,7 +113,7 @@ const AddDrinkDialog = ({ open, setOpen, handleAdd }) => {
             />
           )}
         </div>
-        <div className='field'>
+        <div className='my-2'>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <TimePicker
               views={['hours']}

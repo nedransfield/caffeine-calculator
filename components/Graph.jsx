@@ -14,7 +14,7 @@ import {
 } from 'chart.js'
 import Annotation from 'chartjs-plugin-annotation'
 
-const Graph = ({ drinks }) => {
+const Graph = ({ drinks, halfLife }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 430px)' })
 
   ChartJS.register(
@@ -29,7 +29,6 @@ const Graph = ({ drinks }) => {
     Annotation
   )
 
-  const halfLife = 6
   const decay = Math.log(2) / halfLife
   const caffeineData = new Array(25).fill(0)
   for (let drink of drinks) {
